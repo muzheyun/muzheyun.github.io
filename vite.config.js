@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/U-PET/",
+  base: "./",
   build: {
     outDir: "docs",
   },
@@ -16,5 +16,6 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  publicDir: './docs'
 })

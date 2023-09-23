@@ -1,3 +1,24 @@
+<template>
+  <div>
+<!--    <a-row justify="center">-->
+<!--      <a-image-->
+<!--          :preview="false"-->
+<!--          width="400px"-->
+<!--          src="../assets/step_1.svg"/>-->
+<!--    </a-row>-->
+    <img alt="Vue logo" class="logo" src="../assets/step_1.svg" width="400" height="400" />
+    <a-row justify="center">
+      <a-col
+          :span="1"
+          :pull="1"
+          justify="center"
+      >
+        <a-button @click="capture" type="primary">Capture</a-button>
+      </a-col>
+    </a-row>
+  </div>
+</template>
+
 <script setup>
 import html2canvas from 'html2canvas';
 function capture() {
@@ -44,19 +65,6 @@ defineProps({
   }
 })
 </script>
-
-<template>
-  <div class="greetings" id="capture">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
-    <a-button @click="capture" type="primary">Capture</a-button>
-<!--    <button @click="capture">capture</button>-->
-  </div>
-</template>
 
 <style scoped>
 h1 {

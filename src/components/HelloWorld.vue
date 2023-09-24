@@ -1,26 +1,35 @@
 <template>
-  <div>
-<!--    <a-row justify="center">-->
-<!--      <a-image-->
-<!--          :preview="false"-->
-<!--          width="400px"-->
-<!--          src="../assets/step_1.svg"/>-->
-<!--    </a-row>-->
-    <img alt="Vue logo" class="logo" src="../assets/step_1.svg" width="400" height="400" />
-    <a-row justify="center">
-      <a-col
-          :span="1"
-          :pull="1"
-          justify="center"
-      >
-        <a-button @click="capture" type="primary">Capture</a-button>
-      </a-col>
-    </a-row>
-  </div>
+  <a-row justify="center">
+    <a-col
+        justify="center"
+    >
+      <img alt="Vue logo" class="logo" src="../assets/step_1.svg" width="400" height="400" />
+    </a-col>
+  </a-row>
+
+  <a-row justify="center">
+    <a-col
+        :span="3"
+        :pull="1"
+        justify="center"
+        key="button1"
+    >
+      <a-button @click="prevPage" type="primary" :disabled="buttonProp.page === 1">Capture</a-button>
+    </a-col>
+    <a-col
+        :span="3"
+        justify="center"
+        key="button2"
+    >
+      <a-button  @click="nextPage" type="primary" :disabled="buttonProp.page !== 1">Capture</a-button>
+    </a-col>
+  </a-row>
 </template>
 
 <script setup>
+import { ref, watch } from 'vue'
 import html2canvas from 'html2canvas';
+const emit = defineEmits(['updatePage'])
 function capture() {
   console.log('capture')
   html2canvas(document.querySelector("#capture"), {
@@ -58,12 +67,25 @@ function exportCodeConfirm() {
     document.getElementById('myLink').dispatchEvent(event);
   }, 0);
 }
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
+
+const buttonProp = {
+  page: 1
+}
+const props = defineProps({
+  pageContext: Object
 })
+watch(props.pageContext, async (newData, oldData) => {
+  buttonProp.page = newData.currentPage;
+})
+// const thisCurrentPage = props.currentPage;
+function prevPage() {
+  if (props.pageContext.currentPage > 1) {
+    emit('updatePage', props.pageContext.currentPage - 1); // 触发自定义事件，向父组件传递新页码
+  }
+}
+function nextPage() {
+  emit('updatePage', props.pageContext.currentPage + 1); // 触发自定义事件，向父组件传递新页码
+}
 </script>
 
 <style scoped>

@@ -38,7 +38,7 @@
           placeholder="Select App Type"
           v-model:value="formState.appType"
           style="width: 400px"
-          @change="this.handleAppTypeChange"
+          @change="handleAppTypeChange"
       >
         <a-select-option value="Select app type"  disabled>Select app type</a-select-option>
         <a-select-option value="Free">Free</a-select-option>
@@ -52,7 +52,7 @@
           ref="mobileOs"
           style="width: 400px"
           v-model:value="formState.mobileOs"
-          @change="this.handleMobileOs"
+          @change="handleMobileOs"
       >
         <a-select-option value="Select mobile OS" disabled>Select mobile OS</a-select-option>
         <a-select-option value="Android">Android</a-select-option>
@@ -81,9 +81,9 @@ const formState = reactive({
   desc: '',
 });
 const policyEffectiveDate = ref();
-const onSubmit = () => {
+function onSubmit() {
   console.log('submit!', toRaw(formState));
-};
+}
 const labelCol = {
   style: {
     width: '150px',
@@ -92,10 +92,10 @@ const labelCol = {
 const wrapperCol = {
   span: 14,
 };
-const handleAppTypeChange = value => {
+function handleAppTypeChange (value) {
   console.log(`selected ${value}`);
-};
-const handleMobileOs = value => {
+}
+function handleMobileOs (value) {
   console.log(`selected ${value}`);
-};
+}
 </script>

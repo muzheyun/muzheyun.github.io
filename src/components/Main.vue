@@ -1,31 +1,3 @@
-<template>
-  <a-row justify="center">
-    <a-col
-        justify="center"
-    >
-      <img alt="Vue logo" class="logo" src="../assets/step_1.svg" width="400" height="400" />
-    </a-col>
-  </a-row>
-
-  <a-row justify="center">
-    <a-col
-        :span="3"
-        :pull="1"
-        justify="center"
-        key="button1"
-    >
-      <a-button @click="prevPage" type="primary" :disabled="buttonProp.page === 1">Capture</a-button>
-    </a-col>
-    <a-col
-        :span="3"
-        justify="center"
-        key="button2"
-    >
-      <a-button  @click="nextPage" type="primary" :disabled="buttonProp.page !== 1">Capture</a-button>
-    </a-col>
-  </a-row>
-</template>
-
 <script setup>
 import { ref, watch } from 'vue'
 import html2canvas from 'html2canvas';
@@ -87,6 +59,34 @@ function nextPage() {
   emit('updatePage', props.pageContext.currentPage + 1); // 触发自定义事件，向父组件传递新页码
 }
 </script>
+
+<template>
+  <a-row justify="center">
+    <a-col
+        justify="center"
+    >
+      <img alt="Vue logo" class="logo" src="../assets/step_1.svg" width="400" height="400" />
+    </a-col>
+  </a-row>
+
+  <a-row justify="center">
+    <a-col
+        :span="3"
+        :pull="1"
+        justify="center"
+        key="button1"
+    >
+      <a-button @click="prevPage" type="primary" :disabled="buttonProp.page === 1">Capture</a-button>
+    </a-col>
+    <a-col
+        :span="3"
+        justify="center"
+        key="button2"
+    >
+      <a-button  @click="nextPage" type="primary" :disabled="buttonProp.page === 3">Capture</a-button>
+    </a-col>
+  </a-row>
+</template>
 
 <style scoped>
 h1 {

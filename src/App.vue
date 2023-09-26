@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: hsla(160, 100%, 37%, 0.2);; background-size: 10000px">
+  <div class="grid-background"/>
   <a-row style="height: 10px"></a-row>
   <a-row justify="center">
       <h1>App Privacy Policy Generator</h1>
@@ -19,27 +19,26 @@
         by Nishant and contributors.</h4>
   </a-row>
 
-  <a-row justify="center" style="display: flex; height: 80%">
-    <a-col :span="12">
-      <a-row justify="center">
-        <a-col
-            justify="center"
-        >
-          <img alt="Vue logo" class="logo" src="./assets/step_1.svg" width="400" height="400" />
+  <a-row>
+    <a-col :span="11">
+      <a-row justify="end">
+        <a-col>
+          <img v-if="currentPage === 1" alt="Vue logo" class="logo" src="./assets/step_1.svg" width="400" height="400" />
+          <img v-else-if="currentPage === 2" alt="Vue logo" class="logo" src="./assets/step_2.svg" width="400" height="400" />
+          <img v-else-if="currentPage === 3" alt="Vue logo" class="logo" src="./assets/step_3.svg" width="400" height="400" />
         </a-col>
       </a-row>
 
-      <a-row justify="center">
+      <a-row justify="end">
         <a-col
             :span="3"
             :pull="1"
-            justify="center"
         >
           <a-button
-              @click="currentPage = 1"
+              @click="currentPage -= 1"
               type="primary"
               :disabled="currentPage === 1"
-              key="button1"
+              key="prePage"
               shape="round"
           >
             <template #icon>
@@ -49,14 +48,13 @@
         </a-col>
         <a-col
             :span="3"
-            justify="center"
             key="button2"
         >
           <a-button
-              @click="currentPage = 2"
+              @click="currentPage += 1"
               type="primary"
-              :disabled="currentPage !== 1"
-              key="button2"
+              :disabled="currentPage === 3"
+              key="nextPage"
               shape="round">
             <template #icon>
               <RightOutlined />
@@ -65,56 +63,18 @@
         </a-col>
       </a-row>
     </a-col>
-    <a-col :span="12">
+    <a-col :span="13">
       <TheWelcome :current-page="currentPage" />
     </a-col>
   </a-row>
-  </div>
 </template>
 
 
 <script setup>
 import html2canvas from 'html2canvas'
-import TheWelcome from './components/TheWelcome.vue'
+import TheWelcome from './components/RightTable.vue'
 import {ref} from 'vue'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
 const currentPage = ref(1);
 
-function capture() {
-  console.log('capture')
-  html2canvas(document.querySelector("#capture"), {
-    dpi: 1000,
-  }).then((itsCanvas) => {
-    // document.body.appendChild(itsCanvas);
-    downloadQRImg(itsCanvas, name);
-  });
-}
-/** 根据URL下载图片 */
-function downloadQRImg(canvas, name) {
-  /** 新Image对象，可以理解为DOM */
-  const image = new Image();
-  /** 解决跨域 Canvas 污染问题 */
-  // image.setAttribute('crossOrigin', 'anonymous');
-  // image.onload = function() {
-  /** canvas.toDataURL 返回的是一串Base64编码的URL,指定格式 PNG */
-  const imgUrl = canvas.toDataURL('image/png');
-  image.src = imgUrl;
-  /** 生成一个a元素,并创建一个单击事件 */
-  const a = document.createElement('a');
-  a.download = name || 'photo'; // 设置图片名称
-  a.href = imgUrl; // 将生成的URL设置为a.href属性
-  a.setAttribute('id', 'myLink');
-  // 开发者工具查看生成的链接href的值是否是一个完整的base64格式图片
-  // console.log('标签', a);
-  document.body.appendChild(a);
-  exportCodeConfirm();
-  // }
-}
-function exportCodeConfirm() {
-  setTimeout(() => {
-    const event = new MouseEvent('click');
-    /** 触发a的单击事件 */
-    document.getElementById('myLink').dispatchEvent(event);
-  }, 0);
-}
 </script>

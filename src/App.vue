@@ -19,6 +19,7 @@
         by Nishant and contributors.</h4>
   </a-row>
 
+  <a-row style="height: 30px"></a-row>
   <a-row>
     <a-col :span="11">
       <a-row justify="end">
@@ -29,6 +30,7 @@
         </a-col>
       </a-row>
 
+      <a-row style="height: 30px"></a-row>
       <a-row justify="end">
         <a-col
             :span="3"

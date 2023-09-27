@@ -157,9 +157,9 @@
               <a-select-option value="No">No</a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item>
-            <a-button type="primary" @click="fullData">fullData</a-button>
-          </a-form-item>
+<!--          <a-form-item>-->
+<!--            <a-button type="primary" @click="fullData">fullData</a-button>-->
+<!--          </a-form-item>-->
           <a-form-item>
             <a-button type="primary" @click="onSubmit">Generate</a-button>
           </a-form-item>
@@ -234,7 +234,7 @@ defineProps({
 function capture() {
   console.log('capture')
   console.log(document.querySelector("#capture"))
-  return
+  // return
   setTimeout(() => {
     html2canvas(document.querySelector("#capture"), {
       dpi: 1000,

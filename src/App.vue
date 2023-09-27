@@ -20,22 +20,19 @@
   </a-row>
 
   <a-row style="height: 30px"></a-row>
-  <a-row>
-    <a-col :span="11">
-      <a-row justify="end">
-        <a-col>
-          <img v-if="currentPage === 1" alt="Vue logo" class="logo" src="./assets/step_1.svg" width="400" height="400" />
-          <img v-else-if="currentPage === 2" alt="Vue logo" class="logo" src="./assets/step_2.svg" width="400" height="400" />
-          <img v-else-if="currentPage === 3" alt="Vue logo" class="logo" src="./assets/step_3.svg" width="400" height="400" />
-        </a-col>
-      </a-row>
+  <a-row justify="center">
+    <a-col>
+<!--      <a-row justify="end">-->
+<!--        <a-col>-->
+<!--          <img v-if="currentPage === 1" alt="Vue logo" class="logo" src="./assets/step_1.svg" width="400" height="400" />-->
+<!--          <img v-else-if="currentPage === 2" alt="Vue logo" class="logo" src="./assets/step_2.svg" width="400" height="400" />-->
+<!--          <img v-else-if="currentPage === 3" alt="Vue logo" class="logo" src="./assets/step_3.svg" width="400" height="400" />-->
+<!--        </a-col>-->
+<!--      </a-row>-->
 
       <a-row style="height: 30px"></a-row>
       <a-row justify="end">
-        <a-col
-            :span="3"
-            :pull="1"
-        >
+        <a-col class="buttonCol">
           <a-button
               @click="currentPage -= 1"
               type="primary"
@@ -48,9 +45,26 @@
             </template>
           </a-button>
         </a-col>
+      </a-row>
+    </a-col>
+    <a-col>
+      <TheWelcome :current-page="currentPage" />
+    </a-col>
+    <a-col>
+      <!--      <a-row justify="end">-->
+      <!--        <a-col>-->
+      <!--          <img v-if="currentPage === 1" alt="Vue logo" class="logo" src="./assets/step_1.svg" width="400" height="400" />-->
+      <!--          <img v-else-if="currentPage === 2" alt="Vue logo" class="logo" src="./assets/step_2.svg" width="400" height="400" />-->
+      <!--          <img v-else-if="currentPage === 3" alt="Vue logo" class="logo" src="./assets/step_3.svg" width="400" height="400" />-->
+      <!--        </a-col>-->
+      <!--      </a-row>-->
+
+      <a-row style="height: 30px"></a-row>
+      <a-row justify="start">
         <a-col
             :span="3"
             key="button2"
+            class="buttonCol"
         >
           <a-button
               @click="currentPage += 1"
@@ -65,9 +79,6 @@
         </a-col>
       </a-row>
     </a-col>
-    <a-col :span="13">
-      <TheWelcome :current-page="currentPage" />
-    </a-col>
   </a-row>
 </template>
 
@@ -80,3 +91,9 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
 const currentPage = ref(1);
 
 </script>
+
+<style>
+.buttonCol {
+  margin: 100px 30px;
+}
+</style>

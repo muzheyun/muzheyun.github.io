@@ -1,7 +1,6 @@
 <template>
   <a-row justify="center">
     <a-col
-        :pull="3"
     >
       <a-card
           class="card-class"
@@ -159,13 +158,16 @@
             </a-select>
           </a-form-item>
           <a-form-item>
+            <a-button type="primary" @click="fullData">fullData</a-button>
+          </a-form-item>
+          <a-form-item>
             <a-button type="primary" @click="onSubmit">Generate</a-button>
           </a-form-item>
         </a-form>
       </a-card>
     </a-col>
   </a-row>
-  <Result :formState="formState"/>
+  <Result :formState="formState" :open="open" @close="close"/>
 </template>
 
 <script setup>
@@ -188,9 +190,33 @@ const formState = reactive({
   dataSharing: null,
   dataSelling: null,
 });
+let open = ref(false);
 function onSubmit() {
   console.log('submit!', toRaw(formState));
+  open.value = true;
+  // open = true;
   capture();
+}
+function fullData() {
+  formState.appName = 'appName';
+  formState.developerName = 'developerName';
+  formState.developerContactInformation = 'developerContactInformation';
+  formState.effectiveDate = 'effectiveDate';
+  formState.isEncrypted = 'Yes';
+  formState.governmentRequests = 'Yes';
+  formState.dataBreachNotification = 'Yes';
+  formState.rightToAccess = 'Yes';
+  formState.dataRetention = 10;
+  formState.forgotten = 'Yes';
+  formState.sensitiveInformation = 'Yes';
+  formState.whatInformation = 'whatInformation';
+  formState.dataSharing = 'Yes';
+  formState.dataSelling = 'Yes';
+  console.log('fullData!', toRaw(formState));
+}
+function close() {
+  open.value = false;
+  console.log('close!');
 }
 function handleAppTypeChange (value) {
   console.log(`selected ${value}`);
@@ -208,12 +234,15 @@ defineProps({
 function capture() {
   console.log('capture')
   console.log(document.querySelector("#capture"))
-  html2canvas(document.querySelector("#capture"), {
-    dpi: 1000,
-  }).then((itsCanvas) => {
-    // document.body.appendChild(itsCanvas);
-    downloadQRImg(itsCanvas, name);
-  });
+  return
+  setTimeout(() => {
+    html2canvas(document.querySelector("#capture"), {
+      dpi: 1000,
+    }).then((itsCanvas) => {
+      // document.body.appendChild(itsCanvas);
+      downloadQRImg(itsCanvas, name);
+    });
+  }, 100);
 }
 /** 根据URL下载图片 */
 function downloadQRImg(canvas, name) {
